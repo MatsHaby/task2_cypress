@@ -1,4 +1,4 @@
-const {getUser, createUserPost, updateUserPassword, authenticateUser} = require('../controllers/userController.js');
+const {getUser, createUserPost, updateUserPassword, authenticateUser, deleteUser} = require('../controllers/userController.js');
 
 const getUserOpts = {
   schema: {
@@ -89,12 +89,27 @@ const authenticateUserOpts = {
   handler: authenticateUser
 };
 
+const deleteUserOpts = {
+  schema: {
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          msg: { type: 'string' }
+        }
+      }
+    }
+  },
+  handler: deleteUser
+}
+
 const authRoutes = (fastify, options, done) => {
 
-  fastify.post('/api/v1', createUserOpts)
-  fastify.get('api/v1/user/:id', getUserOpts)
-  fastify.patch('api/v1/user/:id', updateUserPasswordOpts)
-  fastify.post('api/v1/user/login', authenticateUserOpts)
+  fastify.post('/api/v1/user', createUserOpts)
+  fastify.get('/api/v1/user/:id', getUserOpts)
+  fastify.patch('/api/v1/user/:id', updateUserPasswordOpts)
+  fastify.post('/api/v1/user/login', authenticateUserOpts)
+  fastify.delete('/api/v1/user/:id', deleteUserOpts)
 
   done()
 }

@@ -1,30 +1,32 @@
 import './App.css'
 
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
 
-import { HiMail } from 'react-icons/hi';
+import ChangePassword from './pages/ChangePassword';
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import PrivateRoutes from './utils/PrivateRoutes';
+import Register from './pages/Register';
+import { UserStateProvider } from './context/UserStateContext';
+import Wrapper from './components/Wrapper';
 
 function App() {
   return (
-    <form className="flex max-w-md flex-col gap-4">
-      <div>
-        <div className="mb-2 block text-start">
-          <Label htmlFor="email1" className="text-white" value="Your email" />
-        </div>
-        <TextInput id="email1" type="email" placeholder="name@flowbite.com" icon={HiMail} required />
-      </div>
-      <div>
-        <div className="mb-2 block text-start">
-          <Label htmlFor="password1" className="text-white" value="Your password" />
-        </div>
-        <TextInput id="password1" type="password" required />
-      </div>
-      <div className="flex items-center gap-2">
-        <Checkbox id="remember" />
-        <Label htmlFor="remember" className="text-white">Remember me</Label>
-      </div>
-      <Button type="submit">Submit</Button>
-    </form>
+    <UserStateProvider>
+      <Router>
+        <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route element={<Wrapper />}>
+              <Route element={<Dashboard />} path='/Dashboard' />
+              <Route element={<ChangePassword />} path='/changepassword' />
+            </Route>
+          </Route>
+          <Route element={<Login />} path='/' />
+          <Route element={<Register />} path='/register' />
+          <Route element={<h1>FINNS EJ</h1>} path='*' />
+        </Routes>
+      </Router>
+    </UserStateProvider>
   );
 
 }

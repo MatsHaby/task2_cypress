@@ -1,4 +1,5 @@
-const { createUserInDb, getUserFromDb, updateUserInDb, authenticateUserDb } = require("../models/usersModel");
+const { createUserInDb, getUserFromDb, updateUserInDb,
+  authenticateUserDb, deleteUserFromDb } = require("../models/usersModel");
 const { v4: uuid } = require('uuid');
 
 const getUser = (req, reply) => {
@@ -8,7 +9,12 @@ const getUser = (req, reply) => {
 
 const authenticateUser = (req, reply) => {
   const { password, email } = req.body;
-  reply.send(authenticateUserDb(password, email))
+  const data = authenticateUserDb(password, email)
+  if (data.status === 'success') {
+    reply.send(data)
+  } else {
+    reply.status(401).send(data)
+  }
 }
 
 const createUserPost = (req, reply) => {
@@ -22,4 +28,9 @@ const updateUserPassword = (req, reply) => {
    reply.send(updateUserInDb({id, password, email}));
 };
 
-module.exports = {getUser, createUserPost, updateUserPassword, authenticateUser}
+const deleteUser = (req, reply) => {
+  const { id } = req.params
+  reply.send(deleteUserFromDb(id));
+}
+
+module.exports = {getUser, createUserPost, updateUserPassword, authenticateUser, deleteUser}
