@@ -45,11 +45,11 @@ För att starta backend, följ dessa steg:
 1. **Klona projektet**: Använd `git` för att klona projektets källkod till din dator:
 
    ```bash
-   git clone https://github.com/ditt-användarnamn/bakend-projektet
+   git clone https://github.com/MatsHaby/task2_cypress/
    ```
 2. Installera beroenden: Gå till projektmappen och installera projektets beroenden med hjälp av npm:
    ```bash
-   cd bakend-projektet
+   cd task2_cypress/Backend
    npm install
    ```
 3. Starta backend: Starta backend med kommandot:
