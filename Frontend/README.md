@@ -48,12 +48,12 @@ För att komma igång med projektet, följ dessa steg:
 1. **Klona projektet**: Använd `git` för att klona projektets källkod till din dator:
 
    ```bash
-   git clone https://github.com/U2-Cypress
+   git clone https://github.com/MatsHaby/task2_cypress
    ```
 2. **Installera beroenden**: Gå till projektmappen och installera projektets beroenden med hjälp av npm:
 
    ```bash
-   cd U2-Cypress/Frontend
+   cd task2_cypress/Frontend
    npm install
    ```
 3. **Starta utvecklingsservern**: Starta utvecklingsservern med kommandot:
