@@ -32,7 +32,7 @@ Användarinformation lagras i en JSON-fil.
 
 ### Ramverk/bibliotek
 
-- [Fastify](https://www.fastify.io/): Ett snabbt och låglatens webbramverk för Node.js.
+- [Fastify](https://www.fastify.io/): Ett snabbt och låglatens webbramverk för Node.js. Insperat av Express och Hapi.
 - [Node.js](https://nodejs.org/): JavaScript-miljön som körs på servern.
 
 ### Databas
