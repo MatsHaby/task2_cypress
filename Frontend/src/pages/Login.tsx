@@ -41,7 +41,7 @@ const Login = () => {
   return (
     <div>
       <h1>Välkommen!</h1>
-      {error && <p data-test-id="login-error" className="text-red-600 text-start ">{error}</p>}
+      {error && <p data-cy="login-error" className="text-red-600 text-start ">{error}</p>}
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={handleSubmitLogin}
@@ -52,7 +52,6 @@ const Login = () => {
         {({
           values,
           handleSubmit,
-          isSubmitting,
         }) => (
           <Form onSubmit={handleSubmit} className="flex gap-4 mt-8 ">
             <div>
@@ -62,6 +61,7 @@ const Login = () => {
               <Field
                 type="email"
                 name="email"
+                data-cy="email"
                 value={values.email}
                 className="max-w-full text-black rounded-lg input input-solid "
               />
@@ -74,20 +74,21 @@ const Login = () => {
               <Field
                 type="password"
                 name="password"
+                data-cy="password"
                 value={values.password}
                 className="max-w-full text-black rounded-lg input input-solid"
               />
               <ErrorMessage name="password" render={renderError} />
             </div>
             <div className='mt-8'>
-              <Button gradientDuoTone="purpleToBlue" type="submit" disabled={isSubmitting}>
+              <Button data-cy="loginSubmit" gradientDuoTone="purpleToBlue" type="submit" >
                 Logga in
               </Button>
             </div>
           </Form>
         )}
       </Formik>
-      <div className="mt-3 text-start"><NavLink to="/register">Skapa användarkonto här</NavLink></div>
+      <div className="mt-3 text-start"><NavLink data-cy="register" to="/register">Skapa användarkonto här</NavLink></div>
     </div>
   )
 }

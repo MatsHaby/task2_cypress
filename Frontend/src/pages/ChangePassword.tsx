@@ -10,7 +10,7 @@ import { useUserState } from "../hooks/Context";
 
 type submitValues = {
   password: string;
-  passwordConfirmation: string;
+  retypePassword: string;
 }
 
 
@@ -26,9 +26,13 @@ const ChangePassword = () => {
   }
 
   const validationSchema = Yup.object().shape({
-    password: Yup.string().required('Password is required'),
-    passwordConfirmation: Yup.string()
-      .oneOf([Yup.ref('password')], 'Passwords must match')
+    password: Yup
+      .string()
+      .required('Ange lösenord'),
+    retypePassword: Yup
+      .string()
+      .required('Ange lösenordet igen')
+      .oneOf([Yup.ref('password')], 'Lösenorden matchar inte')
   });
 
   const renderError = (message: string) => <p className="text-red-600 text-start ">{message}</p>;
@@ -42,7 +46,7 @@ const ChangePassword = () => {
         <h1>Byta lösenord!</h1>
       </div>
       <Formik
-        initialValues={{ passwordConfirmation: '', password: '' }}
+        initialValues={{ retypePassword: '', password: '' }}
         onSubmit={handleSubmitLogin}
         validationSchema={validationSchema}
         validateOnChange={false}
@@ -61,6 +65,7 @@ const ChangePassword = () => {
               <Field
                 type="password"
                 name="password"
+                data-cy="changePasswordInput"
                 value={values.password}
                 className="w-full text-black rounded-lg input input-solid"
               />
@@ -68,18 +73,19 @@ const ChangePassword = () => {
             </div>
             <div className="text-start">
               <div className="block mb-2 text-white text-start ">
-                <Label className="text-white" htmlFor="passwordConfirmation" value="Nytt lösenord" />
+                <Label className="text-white" htmlFor="retypePassword" value="Bekräfta lösenord" />
               </div>
               <Field
                 type="password"
-                name="passwordConfirmation"
-                value={values.passwordConfirmation}
+                name="retypePassword"
+                data-cy="changePasswordAgainInput"
+                value={values.retypePassword}
                 className="w-full text-black rounded-lg input input-solid"
               />
-              <ErrorMessage name="password" render={renderError} />
+              <ErrorMessage name="retypePassword" render={renderError} />
             </div>
             <div className='w-full mt-6'>
-              <Button className="w-full" gradientDuoTone="purpleToBlue" type="submit" disabled={isSubmitting}>
+              <Button data-cy="changePasswordSubmit" className="w-full" gradientDuoTone="purpleToBlue" type="submit" disabled={isSubmitting}>
                 Byt lösenord
               </Button>
             </div>

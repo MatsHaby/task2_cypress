@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { postCreateUser } from '../services/userAPI';
+import { useState } from "react";
 
 type submitValues = {
   email: string;
@@ -16,13 +17,21 @@ type submitValues = {
 
 const Register = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState<string[] | null>(null);
 
   const handleSubmitLogin = (values: submitValues) => {
     postCreateUser(values)
-      .then(() => {
-        navigate("/")
+      .then((d) => {
+        console.log(d)
+        if (d.status === 'success') {
+          setError(null)
+          navigate("/")
+        }
+        if (d.status === 'fail') {
+          setError(d.data.email)
+        }
       })
-      .catch(err => console.log(err))
+      .catch(err => setError(err.response.data.data))
   }
 
   const validationSchema = Yup.object().shape({
@@ -45,6 +54,7 @@ const Register = () => {
         </NavLink>
         <h1>Registrera dig!</h1>
       </div>
+      {error && <p data-cy="register-error" className="text-red-600 text-start">{error}</p>}
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         onSubmit={handleSubmitLogin}
@@ -55,7 +65,6 @@ const Register = () => {
         {({
           values,
           handleSubmit,
-          isSubmitting,
         }) => (
           <Form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 mt-8 ">
             <div>
@@ -64,6 +73,7 @@ const Register = () => {
               </div>
               <Field
                 type="text"
+                data-cy="name"
                 name="name"
                 value={values.name}
                 className="w-full text-black rounded-lg input input-solid "
@@ -76,6 +86,7 @@ const Register = () => {
               </div>
               <Field
                 type="email"
+                data-cy="email"
                 name="email"
                 value={values.email}
                 className="w-full text-black rounded-lg input input-solid "
@@ -89,13 +100,14 @@ const Register = () => {
               <Field
                 type="password"
                 name="password"
+                data-cy="password"
                 value={values.password}
                 className="w-full text-black rounded-lg input input-solid"
               />
               <ErrorMessage name="password" render={renderError} />
             </div>
             <div className='w-full mt-8'>
-              <Button className="w-full" gradientDuoTone="purpleToBlue" type="submit" disabled={isSubmitting}>
+              <Button data-cy="registerSubmit" className="w-full" gradientDuoTone="purpleToBlue" type="submit">
                 Skapa konto
               </Button>
             </div>

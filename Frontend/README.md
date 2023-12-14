@@ -18,6 +18,7 @@
 ![login](screenshots/Login.png)
 ![register](screenshots/Register.png)
 ![dashboard](screenshots/Dashboard.png)
+![changePassword](screenshots/changePassword.png)
 
 ## Projektbeskrivning
 
@@ -26,6 +27,8 @@ Syftet med detta projekt är att skapa en webbapplikation med fokus på använda
 Detta frontend nyttjar följande backend:
 
 ## TechStack
+
+Vite/react felade när man kör node version 20.x.x, så rekommenderar att använda högst node version 18.x.x.
 
 ### Ramverk/bibliotek
 - [React](https://reactjs.org/)
@@ -37,7 +40,6 @@ Detta frontend nyttjar följande backend:
 
 ### Testning
 - [Cypress](https://www.cypress.io)
-- [faker-js (till att mocka data)](https://fakerjs.dev)
 
 ## Komma igång
 
@@ -66,7 +68,21 @@ Testerna (Cypress) startas med följande kommando:
    ```bash
    npx cypress open
    ```
+eller för att köra testerna i headless mode:
+   ```bash
+   npx cypress run
+   ```
 
+I Cypress finns tre specs filer som innehåller testfall för:
+ - Registrering av ny användare
+ - Inloggning av befintlig användare
+ - Uppdatering av lösenord
+
+En mockad användare (cypress/fixtures/user.json) används för att att utföra testerna.
+Användaren har följande uppgifter:
+ - Namn: testuser
+ - Lösenord: testuser123
+ - E-post: testuser@email.com
 
 ## Användning
 Nu när projektet är igång, gå till URL: http://localhost:5173
@@ -74,4 +90,4 @@ Här kan du använda appen på följande sätt:
 
 - Befintlig användare: Ange dina uppgifter för att logga in och komma åt din dashboard.
 - Ny användare: Klicka på registrera och ange dina uppgifter. Logga därefter in med dina uppgifter.
-- Väl inloggad har du möjlighet att: Ändra lösenord, ta bort ditt användarkonto eller logga ut.
+- Väl inloggad har du möjlighet att: Se din dashboard, ändra lösenord eller logga ut.

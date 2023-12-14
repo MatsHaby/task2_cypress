@@ -91,11 +91,16 @@ const authenticateUserOpts = {
 
 const deleteUserOpts = {
   schema: {
+    type: 'object',
+    body: {
+      email: { type: 'string' },
+    },
     response: {
       200: {
         type: 'object',
         properties: {
-          msg: { type: 'string' }
+          status: { type: 'string' },
+          data: { type: 'string' },
         }
       }
     }
@@ -109,7 +114,7 @@ const authRoutes = (fastify, options, done) => {
   fastify.get('/api/v1/user/:id', getUserOpts)
   fastify.patch('/api/v1/user/:id', updateUserPasswordOpts)
   fastify.post('/api/v1/user/login', authenticateUserOpts)
-  fastify.delete('/api/v1/user/:id', deleteUserOpts)
+  fastify.post('/api/v1/user/delete', deleteUserOpts)
 
   done()
 }

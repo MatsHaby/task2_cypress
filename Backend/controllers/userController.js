@@ -18,8 +18,8 @@ const authenticateUser = (req, reply) => {
 }
 
 const createUserPost = (req, reply) => {
-  const { name, password, email } = req.body;
-  reply.send(createUserInDb({id: uuid(), name, password, email}));
+  const { name, password, email, id } = req.body;
+  reply.send(createUserInDb({id: id || uuid(), name, password, email}));
 };
 
 const updateUserPassword = (req, reply) => {
@@ -29,8 +29,8 @@ const updateUserPassword = (req, reply) => {
 };
 
 const deleteUser = (req, reply) => {
-  const { id } = req.params
-  reply.send(deleteUserFromDb(id));
+  const { email } = req.body;
+  reply.send(deleteUserFromDb(email));
 }
 
 module.exports = {getUser, createUserPost, updateUserPassword, authenticateUser, deleteUser}

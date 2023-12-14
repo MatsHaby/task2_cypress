@@ -54,7 +54,13 @@ För att starta backend, följ dessa steg:
    ```
 3. Starta backend: Starta backend med kommandot:
    ```bash
-   npm start
+   npm run start
+   ```
+
+För att starta backend med nodemon, följ dessa steg:
+krävs att nodemon är installerat globalt på datorn.
+   ```bash
+   npm run dev
    ```
 
 Backend kommer att starta upp med följade URL och port http://localhost:5001.
@@ -63,8 +69,8 @@ Backend kommer att starta upp med följade URL och port http://localhost:5001.
 
 ### Registrera en ny användare
 
-Metod: POST
-Rutt: /api/v1/user/register
+Metod: `POST`
+Rutt: `/api/v1/user/register`
 Payload:
 &emsp;name: sträng
 &emsp;email: sträng
@@ -126,7 +132,7 @@ Rutt: /api/user/:id
 Parametrar: id - Användarens unika identifierare
 
 #### Exempel på förfrågan
-http://127.0.0.1:5000/api/v1/user/99ca0b84-9d5c-4c1b-b5e5-30993ae94fb2
+http://127.0.0.1:5001/api/v1/user/99ca0b84-9d5c-4c1b-b5e5-30993ae94fb2
 
  ```JSON
 {
@@ -147,11 +153,17 @@ http://127.0.0.1:5000/api/v1/user/99ca0b84-9d5c-4c1b-b5e5-30993ae94fb2
 
 ### Ta bort användaren
 
-Metod: `DELETE`
-Rutt: /api/v1/user/:id
+Metod: `POST`
+Rutt: /api/v1/user/delete
 
 #### Exempel på förfrågan
-http://127.0.0.1:5000/api/v1/user/99ca0b84-9d5c-4c1b-b5e5-30993ae94fb2
+http://127.0.0.1:5001/api/v1/user/delete
+
+ ```JSON
+{
+	"email": "test@mail.com"
+}
+```
 
 #### Exempel på svar
 

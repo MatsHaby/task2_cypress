@@ -39,12 +39,16 @@ const getUserFromDb = (id) => {
   return ({ status: 'success', data: users.find(u => u.id === id) });
 }
 
-const deleteUserFromDb = (id) => {
+const deleteUserFromDb = (email) => {
   const users = getUsersFromDb();
-  const index = users.findIndex(u => u.id === id);
+  const index = users.findIndex(u => u.email === email);
   users.splice(index, 1);
-  fs.writeFileSync(dataBase, JSON.stringify({ users }, null, 2));
-  return ({ status: 'success', data: 'Användaren är nu borttagen' });
+  if (index === -1) {
+    return ({ status: 'fail', data: 'Användaren finns inte' });
+  } else {
+    fs.writeFileSync(dataBase, JSON.stringify({ users }, null, 2));
+    return ({ status: 'success', data: 'Användaren är nu borttagen' });
+  }
 }
 
 module.exports = {createUserInDb, updateUserInDb, getUsersFromDb, getUserFromDb, deleteUserFromDb, authenticateUserDb}
